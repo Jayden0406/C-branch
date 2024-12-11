@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+    int empNumber;
+    string hireDate;
+
+public:
+    // Constructor to initialize employee information
+    Employee(string n, int num, string date)
+        : name(n), empNumber(num), hireDate(date) {}
+
+    // Print basic employee information
+    virtual void print() const {
+        cout << "Name: " << name << endl;
+        cout << "Employee Number: " << empNumber << endl;
+        cout << "Hire Date: " << hireDate << endl;
+    }
+
+    // Accessors (getters)
+    string getName() const { return name; }
+    int getEmpNumber() const { return empNumber; }
+    string getHireDate() const { return hireDate; }
+
+    // Mutators (setters)
+    void setName(string n) { name = n; }
+    void setEmpNumber(int num) { empNumber = num; }
+    void setHireDate(string date) { hireDate = date; }
+};
+class ShiftSupervisor : public Employee {
+private:
+    double annualSalary;
+    double annualBonus;
+
+public:
+    // Constructor to initialize both the employee and supervisor details
+    ShiftSupervisor(string n, int num, string date, double salary, double bonus)
+        : Employee(n, num, date), annualSalary(salary), annualBonus(bonus) {}
+
+    // Overridden print function to display shift supervisor details
+    void print() const override {
+        Employee::print();  // Call the base class print to show employee information
+        cout << "Annual Salary: $" << annualSalary << endl;
+        cout << "Annual Bonus: $" << annualBonus << endl;
+    }
+
+    // Accessor (getter) methods
+    double getAnnualSalary() const { return annualSalary; }
+    double getAnnualBonus() const { return annualBonus; }
+
+    // Mutator (setter) methods
+    void setAnnualSalary(double salary) { annualSalary = salary; }
+    void setAnnualBonus(double bonus) { annualBonus = bonus; }
+};
+int main() {
+    // Create a ShiftSupervisor object for Elmer Velasquez
+    ShiftSupervisor supervisor("Hanif Soul", 67890, "03/22/2022", 70000.00, 1000.00);
+
+    // Print the shift supervisor's report
+    cout << "Shift Supervisor Report:" << endl;
+    supervisor.print();  // Display information for supervisor
+
+    return 0;
+}
