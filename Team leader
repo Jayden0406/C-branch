@@ -1,0 +1,135 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+    int empNumber;
+    string hireDate;
+
+public:
+    // Constructor to initialize employee information
+    Employee(string n, int num, string date)
+        : name(n), empNumber(num), hireDate(date) {}
+
+    // Print basic employee information
+    virtual void print() const {
+        cout << "Name: " << name << endl;
+        cout << "Employee Number: " << empNumber << endl;
+        cout << "Hire Date: " << hireDate << endl;
+    }
+
+    // Accessors (getters)
+    string getName() const { return name; }
+    int getEmpNumber() const { return empNumber; }
+    string getHireDate() const { return hireDate; }
+
+    // Mutators (setters)
+    void setName(string n) { name = n; }
+    void setEmpNumber(int num) { empNumber = num; }
+    void setHireDate(string date) { hireDate = date; }
+};
+class ShiftSupervisor : public Employee {
+private:
+    double annualSalary;
+    double annualBonus;
+
+public:
+    // Constructor to initialize both the employee and supervisor details
+    ShiftSupervisor(string n, int num, string date, double salary, double bonus)
+        : Employee(n, num, date), annualSalary(salary), annualBonus(bonus) {}
+
+    // Overridden print function to display shift supervisor details
+    void print() const override {
+        Employee::print();  // Call the base class print to show employee information
+        cout << "Annual Salary: $" << annualSalary << endl;
+        cout << "Annual Bonus: $" << annualBonus << endl;
+    }
+
+    // Accessor (getter) methods
+    double getAnnualSalary() const { return annualSalary; }
+    double getAnnualBonus() const { return annualBonus; }
+
+    // Mutator (setter) methods
+    void setAnnualSalary(double salary) { annualSalary = salary; }
+    void setAnnualBonus(double bonus) { annualBonus = bonus; }
+};
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ProductionWorker : public Employee {
+private:
+    int shift;  // 1 for day shift, 2 for night shift
+    double hourlyPayRate;
+
+public:
+    // Constructor for ProductionWorker
+    ProductionWorker(string n, int num, string date, int s, double payRate)
+        : Employee(n, num, date), shift(s), hourlyPayRate(payRate) {}
+
+    // Override print() function
+    void print() const override {
+        Employee::print();  // Display employee's basic information
+        cout << "Shift: " << (shift == 1 ? "Day" : "Night") << endl;
+        cout << "Hourly Pay Rate: $" << hourlyPayRate << endl;
+    }
+
+    // Accessors
+    int getShift() const { return shift; }
+    double getHourlyPayRate() const { return hourlyPayRate; }
+
+    // Mutators
+    void setShift(int s) { shift = s; }
+    void setHourlyPayRate(double payRate) { hourlyPayRate = payRate; }
+};
+class TeamLeader : public ProductionWorker {
+private:
+    double monthlyBonus;       // Monthly bonus for the team leader
+    int requiredTrainingHours; // Number of required training hours per year
+    int attendedTrainingHours; // Number of training hours attended
+
+public:
+    // Constructor for TeamLeader
+    TeamLeader(string n, int num, string date, int s, double payRate, 
+               double bonus, int reqTraining, int attTraining)
+        : ProductionWorker(n, num, date, s, payRate), monthlyBonus(bonus), 
+          requiredTrainingHours(reqTraining), attendedTrainingHours(attTraining) {}
+
+    // Override print() function to display TeamLeader-specific info
+    void print() const override {
+        ProductionWorker::print();  // Print base class information (Employee + ProductionWorker)
+        cout << "Monthly Bonus: $" << monthlyBonus << endl;
+        cout << "Required Training Hours: " << requiredTrainingHours << endl;
+        cout << "Attended Training Hours: " << attendedTrainingHours << endl;
+    }
+
+    // Accessors (getters)
+    double getMonthlyBonus() const { return monthlyBonus; }
+    int getRequiredTrainingHours() const { return requiredTrainingHours; }
+    int getAttendedTrainingHours() const { return attendedTrainingHours; }
+
+    // Mutators (setters)
+    void setMonthlyBonus(double bonus) { monthlyBonus = bonus; }
+    void setRequiredTrainingHours(int hours) { requiredTrainingHours = hours; }
+    void setAttendedTrainingHours(int hours) { attendedTrainingHours = hours; }
+};
+int main() {
+    // Create a ShiftSupervisor object for Elmer Velasquez
+    ShiftSupervisor supervisor("Elmer Velasquez", 100325, "1/17/2024", 70000.00, 1000.00);
+
+    // Print the shift supervisor's report
+    cout << "Shift Supervisor Report:" << endl;
+    supervisor.print();  // Display information for supervisor
+    // Create a TeamLeader object
+    TeamLeader leader("Hanif Soul", 10234, "7/15/2023", 1, 22.50, 1500.00, 40, 35);
+
+    // Print the TeamLeader's report
+    cout << "Team Leader Report:" << endl;
+    leader.print();  // Display all information about the team leader
+    return 0;
+}
