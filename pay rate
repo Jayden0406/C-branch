@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int empNumber;
+    string hireDate;
+
+public:
+    // Constructor
+    Employee(string n, int num, string date)
+        : name(n), empNumber(num), hireDate(date) {}
+
+    // Print employee's basic information
+    virtual void print() const {
+        cout << "Name: " << name << endl;
+        cout << "Employee Number: " << empNumber << endl;
+        cout << "Hire Date: " << hireDate << endl;
+    }
+
+    // Accessors (Getters)
+    string getName() const { return name; }
+    int getEmpNumber() const { return empNumber; }
+    string getHireDate() const { return hireDate; }
+
+    // Mutators (Setters)
+    void setName(string n) { name = n; }
+    void setEmpNumber(int num) { empNumber = num; }
+    void setHireDate(string date) { hireDate = date; }
+};
+class ProductionWorker : public Employee {
+private:
+    int shift;  // 1 for Day shift, 2 for Night shift
+    double hourlyPayRate;
+
+public:
+    // Constructor
+    ProductionWorker(string n, int num, string date, int s, double rate)
+        : Employee(n, num, date), shift(s), hourlyPayRate(rate) {}
+
+    // Override the print function to include production worker details
+    void print() const override {
+        Employee::print();  // Call the base class print function
+        string shiftStr = (shift == 1) ? "Day" : "Night";  // Determine shift string
+        cout << "Shift: " << shiftStr << endl;
+        cout << "Hourly Pay Rate: $" << hourlyPayRate << endl;
+    }
+
+    // Accessors (Getters)
+    int getShift() const { return shift; }
+    double getHourlyPayRate() const { return hourlyPayRate; }
+
+    // Mutators (Setters)
+    void setShift(int s) { shift = s; }
+    void setHourlyPayRate(double rate) { hourlyPayRate = rate; }
+};
+int main() {
+    // Create two ProductionWorker objects
+    ProductionWorker worker1("Lukas Knight", 23482, "04/06/2023", 1, 20.25);
+    ProductionWorker worker2("Hanif Soul", 67890, "03/22/2022", 2, 25.50);
+
+    // Print reports for both workers
+    cout << "Production Worker Report 1:" << endl;
+    worker1.print();  // Display information for worker1
+    cout << "\nProduction Worker Report 2:" << endl;
+    worker2.print();  // Display information for worker2
+
+    return 0;
+}
+
