@@ -1,0 +1,22 @@
+#include <random>
+
+void testRandomSearch() {
+    std::vector<int> vec;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, 100);
+
+    for (int i = 0; i < 20; ++i) vec.push_back(dis(gen));
+    std::sort(vec.begin(), vec.end());
+    int target = dis(gen);
+
+    std::cout << "Vector: ";
+    for (int val : vec) std::cout << val << " ";
+    std::cout << "\nTarget: " << target << "\n";
+
+    int index = iterativeBinarySearch(vec, target);
+    if (index >= 0)
+        std::cout << "Target found at location: " << index << "\n";
+    else
+        std::cout << "Target was not found.\n";
+}
