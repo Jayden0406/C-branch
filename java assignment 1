@@ -1,0 +1,72 @@
+/*
+ * Program Name: GradeCalculator
+ * Author: Jayden Anderson
+ * Date: 2/10/26
+ * 
+ // this was done by me with lots of confusion
+ * Description:
+ * This program prompts the user to enter their first and last name,
+ * along with three integer test scores. It calculates the total and
+ * average of the scores, determines the corresponding letter grade,
+ * and displays the results using formatted output.
+ */
+
+import java.util.Scanner;
+
+public class GradeCalculator {
+
+    public static void main(String[] args) {
+        
+        // Create Scanner object to read input from keyboard
+        Scanner input = new Scanner(System.in);
+        
+        // Prompt and read user's first and last name
+        System.out.print("Enter your first name: ");
+        String firstName = input.nextLine();
+        
+        System.out.print("Enter your last name: ");
+        String lastName = input.nextLine();
+        
+        // Prompt and read three integer scores
+        System.out.print("Enter first score: ");
+        int score1 = input.nextInt();
+        
+        System.out.print("Enter second score: ");
+        int score2 = input.nextInt();
+        
+        System.out.print("Enter third score: ");
+        int score3 = input.nextInt();
+        
+        // Calculate total
+        int total = score1 + score2 + score3;
+        
+        // Calculate average (cast to double for accurate division)
+        double average = total / 3.0;
+        
+        // Determine letter grade
+        char letterGrade;
+        
+        if (average >= 90) {
+            letterGrade = 'A';
+        } else if (average >= 80) {
+            letterGrade = 'B';
+        } else if (average >= 70) {
+            letterGrade = 'C';
+        } else {
+            letterGrade = 'F';
+        }
+        
+        // Output results using printf (formatted output)
+        System.out.printf("\nStudent Name: %s %s%n", firstName, lastName);
+        System.out.printf("Score 1: %d%n", score1);
+        System.out.printf("Score 2: %d%n", score2);
+        System.out.printf("Score 3: %d%n", score3);
+        System.out.printf("Total: %d%n", total);
+        System.out.printf("Average: %.2f%n", average);
+        System.out.printf("Letter Grade: %c%n", letterGrade);
+        
+        // Close scanner
+        input.close();
+    }
+}
+
